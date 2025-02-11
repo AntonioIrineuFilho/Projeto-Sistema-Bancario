@@ -19,34 +19,31 @@ public class Cliente {
         if (id >= 0) {
             this.id = id;
         } else {
-            throw new IlegalArgumentException("INVALID ID");
+            throw new IllegalArgumentException("INVALID ID");
         }
     }
 
     public void setNome(String nome) {
-        String vazio = "";
-        if (!(nome.equals(vazio))) {
+        if (!nome.isEmpty()) {
             this.nome = nome;
         } else {
-            throw new IlegalArgumentException("INVALID NAME");
+            throw new IllegalArgumentException("INVALID NAME");
         }
     }
 
-    public setCpf(String cpf) {
-        String vazio = "";
-        if (!(nome.equals(vazio))) {
+    public void setCpf(String cpf) {
+        if (!cpf.isEmpty()) {
             this.cpf = cpf;
         } else {
-            throw new IlegalArgumentException("INVALID CPF");
+            throw new IllegalArgumentException("INVALID CPF");
         }  
     }
 
-    public setTelefone(String telefone) {
-        String vazio = "";
-        if (!(nome.equals(vazio))) {
+    public void setTelefone(String telefone) {
+        if (!telefone.isEmpty()) {
             this.telefone = telefone;;
         } else {
-            throw new IlegalArgumentException("INVALID FONE");
+            throw new IllegalArgumentException("INVALID FONE");
         }  
     }
 
@@ -54,7 +51,7 @@ public class Cliente {
         if (idade >= 18) {
             this.idade = idade;
         } else {
-            throw new IlegalArgumentException("INVALID AGE");
+            throw new IllegalArgumentException("INVALID AGE");
         }
     }
 
@@ -89,7 +86,7 @@ public class Cliente {
     }
 
     public String toString() {
-        return String.format("Nome: %s - CPF: %s - Telefone: %s - Idade: %d", this.getNome(), this.getCpf(), this.getTelefone(), this.Idade());
+        return String.format("Nome: %s - CPF: %s - Telefone: %s - Idade: %d", this.getNome(), this.getCpf(), this.getTelefone(), this.getIdade());
     }
 
 }

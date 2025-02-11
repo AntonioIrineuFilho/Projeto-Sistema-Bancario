@@ -1,10 +1,12 @@
 public class Conta {
     private int id;
+    private int idCliente;
     private String numero;
     private double saldo;
 
-    public Conta(int id, String numero, double saldo) {
+    public Conta(int id, int idCliente, String numero, double saldo) {
         this.setId(id);
+        this.setIdCliente(idCliente);
         this.setNumero(numero);
         this.setSaldo(saldo);
     }
@@ -13,16 +15,23 @@ public class Conta {
         if (id >= 0) {
             this.id = id;
         } else {
-            throw new IlegalArgumentException("INVALID ID");
+            throw new IllegalArgumentException("INVALID ID");
+        }
+    }
+
+    public void setIdCliente(int idCliente) {
+        if (idCliente > 0) {
+            this.idCliente = idCliente;
+        } else {
+            throw new IllegalArgumentException("INVALID ID CLIENT");
         }
     }
 
     public void setNumero(String numero) {
-        String vazio = "";
-        if (!(numero.equals(vazio))) {
+        if (!numero.isEmpty()) {
             this.numero = numero;
         } else {
-            throw new IlegalArgumentException("INVALID ACCOUNT NUM");
+            throw new IllegalArgumentException("INVALID ACCOUNT NUM");
         }
     }
 
@@ -30,12 +39,16 @@ public class Conta {
         if (saldo >= 0) {
             this.saldo = saldo;
         } else {
-            throw new IlegalArgumentException("INVALID ACCOUNT BALANCE");
+            throw new IllegalArgumentException("INVALID ACCOUNT BALANCE");
         }
     }
 
     public int getId() {
         return this.id;
+    }
+
+    public int getIdCliente() {
+        return this.idCliente;
     }
 
     public String getNumero() {
@@ -47,6 +60,6 @@ public class Conta {
     }
 
     public String toString() {
-        return String.format("Número: %s - Saldo: R$ %.2f", this.getNumero(), this.getSaldo());
+        return String.format("ID do Cliente: %d - Número: %s - Saldo: R$ %.2f", this.getIdCliente(), this.getNumero(), this.getSaldo());
     }
 }
