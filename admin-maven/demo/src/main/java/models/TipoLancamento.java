@@ -41,4 +41,8 @@ public class TipoLancamento implements VerificaGetId {
 
 public class TiposLancamentos extends CRUD<TipoLancamento> {
     
+    public TiposLancamentos() {
+        super("data/tiposLancamentos.json");
+    }
+
 }

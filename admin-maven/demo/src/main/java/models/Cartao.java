@@ -40,4 +40,7 @@ public class Cartao implements VerificaGetId {
 
 public class Cartoes extends CRUD<Cartoes> {
     
+    public Cartoes() {
+        super("data/cartoes.json");
+    }
 }

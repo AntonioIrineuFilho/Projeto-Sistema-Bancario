@@ -79,8 +79,3 @@ public class Lancamento {
         return String.format("ID Tipo de Lançamento: %d - Conta de Origem: %s - Conta de Destino: %s - Valor: R$ %.2f", this.getIdTipoLancamento(), this.getNumeroContaOrigem(), this.getNumeroContaDestino(), this.getValor());
     }
 }
-
-
-public class Lancamentos {
-    
-}

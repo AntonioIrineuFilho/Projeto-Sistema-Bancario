@@ -1,13 +1,33 @@
 package com.admin;
 
-/**
- * Hello world!
- *
- */
+import models.Cliente;
+import models.Clientes;
+import models.Cartao;
+import models.Cartoes;
+import models.TipoLancamento;
+import models.TiposLancamentos;
+
+import java.util.Scanner;
+
+
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Digite o nome do cliente: ");
+        String nome = scanner.nextLine();
+        System.out.print("Digite o CPF do cliente: ");
+        String cpf = scanner.nextLine();
+        System.out.print("Digite o telefone do cliente: ");
+        String telefone = scanner.nextLine();
+        System.out.print("Digite a idade do cliente: ");
+        int idade = scanner.nextInt();
+
+        Cliente cliente = new Cliente(0, nome, cpf, telefone, idade);
+        Clientes clientes = new Clientes();
+        clientes.inserir(cliente);
+        scanner.close();
     }
 }

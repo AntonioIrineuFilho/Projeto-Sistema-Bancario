@@ -29,13 +29,11 @@ public class CRUD<TipoObjeto extends VerificaId> {
     public void inserir(TipoObjeto objeto) {
         abrir();
         int id = 0;
-        if (listaObjetos.size() != 0) {
-            for (int i = 0; i < listaObjetos.size(); i++) {
-                if (listaObjetos.get(i).getId() > id) {
-                    id = listaObjetos.get(i).getId();
-                }
+        for (int i = 0; i < listaObjetos.size(); i++) {
+            if (listaObjetos.get(i).getId() > id) {
+                id = listaObjetos.get(i).getId();
             }
-        } else { id = -1; }
+        }
         objeto.setId(id+1);
         listaObjetos.add(objeto);
         salvar();

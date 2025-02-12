@@ -94,22 +94,9 @@ public class Cliente implements VerificaGetId {
 }
 
 public class Clientes extends CRUD<Cliente> {
+    
     public Clientes() {
-        super(inputStream);
+        super("data/clientes.json");
     }
 
 }
-
-
-
-// // ProductCRUD.java
-// import java.util.List;
-
-// public class ProductCRUD extends CRUD<Product> {
-
-//     public ProductCRUD(List<Product> db) {
-//         super(db);
-//     }
-
-//     // Aqui você pode adicionar métodos específicos para manipular produtos, se necessário.
-// }
