@@ -1,12 +1,18 @@
+package models;
+
+import java.util.Arrays;
+
 public class Conta {
     private int id;
     private int idCliente;
+    private int[] idCartao = new int[2];
     private String numero;
     private double saldo;
 
     public Conta(int id, int idCliente, String numero, double saldo) {
         this.setId(id);
         this.setIdCliente(idCliente);
+        this.idCartao = new int[]{0, 0};
         this.setNumero(numero);
         this.setSaldo(saldo);
     }
@@ -24,6 +30,16 @@ public class Conta {
             this.idCliente = idCliente;
         } else {
             throw new IllegalArgumentException("INVALID ID CLIENT");
+        }
+    }
+
+    public void setIdCartao(int idCartao, String tipo) {
+        if (idCartao > 0 && tipo.equals("Débito")) {
+            this.idCartao[0] = idCartao;
+        } else if (idCartao > 0 && tipo.equals("Crédito")) {
+            this.idCartao[1] = idCartao;
+        } else {
+            throw new IllegalArgumentException("INVALID ID CARD");
         }
     }
 
@@ -51,6 +67,10 @@ public class Conta {
         return this.idCliente;
     }
 
+    public int[] getIdCartao() {
+        return this.idCartao;
+    }
+
     public String getNumero() {
         return this.numero;
     }
@@ -60,6 +80,11 @@ public class Conta {
     }
 
     public String toString() {
-        return String.format("ID do Cliente: %d - Número: %s - Saldo: R$ %.2f", this.getIdCliente(), this.getNumero(), this.getSaldo());
+        return String.format("ID do Cliente: %d - ID dos Cartões: %d - Número: %s - Saldo: R$ %.2f", this.getIdCliente(), Arrays.toString(this.getIdCartao()), this.getNumero(), this.getSaldo());
     }
+}
+
+
+public class Contas {
+    
 }
