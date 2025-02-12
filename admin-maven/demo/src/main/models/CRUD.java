@@ -23,6 +23,7 @@ public class CRUD<TipoObjeto extends VerificaId> {
     public CRUD(String arquivoJson) {
         this.listaObjetos = new ArrayList<>();
         this.arquivoJson = arquivoJson;
+        abrir();
     }
 
     public void inserir(TipoObjeto objeto) {
