@@ -1,70 +1,94 @@
 package models;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ObjectWithoutGetIdException extends RuntimeException {
-    public ObjectWithoutGetIdException() {
-        super("METHOD 'getId()' NOT FOUND");
-    }
-}
-
-public interface VerificaGetId {
+public interface VerificaId {
+    void setId(int id);
     int getId();
 }
 
-public class CRUD<TipoObjeto> {
-    private List<TipoObjeto> listaObjetos;
+public class CRUD<TipoObjeto extends VerificaId> {
 
-    public CRUD(TipoObjeto listaObjetos) {
-        this.listaObjetos = listaObjetos;
+    private List<TipoObjeto> listaObjetos;
+    private final String arquivoJson;
+
+    public CRUD(String arquivoJson) {
+        this.listaObjetos = new ArrayList<>();
+        this.arquivoJson = arquivoJson;
     }
 
     public void inserir(TipoObjeto objeto) {
-        if (objeto instanceof VerificaGetId) {
-            int id = 0;
-            if (listaObjetos.size() != 0) {
-                for (int i = 0; i < listaObjetos.size(); i++) {
-                    if (listaObjetos.get(i).getId() > id) {
-                        id = listaObjetos.get(i).getId();
-                    }
+        abrir();
+        int id = 0;
+        if (listaObjetos.size() != 0) {
+            for (int i = 0; i < listaObjetos.size(); i++) {
+                if (listaObjetos.get(i).getId() > id) {
+                    id = listaObjetos.get(i).getId();
                 }
-            } else { id = -1; }
-            objeto.setId(id+1);
-            listaObjetos.add(objeto);
-        } else {
-            throw new ObjectWithoutGetIdException();
-        }
+            }
+        } else { id = -1; }
+        objeto.setId(id+1);
+        listaObjetos.add(objeto);
+        salvar();
     }
 
-    public TipoObjeto listar() {
+    public List<TipoObjeto> listar() {
+        abrir();
         return listaObjetos;
     }
 
-    public void atualizar(int id, TipoObjeto novoObjeto) {
-        if (novoObjeto instanceof VerificaGetId) {
-            for (int i = 0; i < listaObjetos.size(); i++) {
-                if (listaObjetos.get(i).getId() == id) {
-                    listaObjetos.set(i, novoObjeto);
-                    break;
-                }
+    public boolean atualizar(int id, TipoObjeto novoObjeto) {
+        abrir();
+        for (int i = 0; i < listaObjetos.size(); i++) {
+            if (listaObjetos.get(i).getId() == id) {
+                listaObjetos.set(i, novoObjeto);
+                salvar();
+                return true;
             }
-        } else {
-            throw new ObjectWithoutGetIdException();
+        }
+        return false;
+    }
+
+    public boolean deletar(int id) {
+        abrir();
+        for (int i = 0; i < listaObjetos.size(); i++) {
+            if (listaObjetos.get(i).getId() == id) {
+                listaObjetos.remove(i);
+                salvar();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void salvar() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try (FileWriter writer = new FileWriter(arquivoJson)) {
+            gson.toJson(listaObjetos, writer);
+        } catch (IOException erro) {
+            erro.printStackTrace();
         }
     }
 
-    public void deletar(int id, TipoObjeto novoObjeto) {
-        if (novoObjeto instanceof VerificaGetId) {
-            for (int i = 0; i < listaObjetos.size(); i++) {
-                if (listaObjetos.get(i).getId() == id) {
-                    listaObjetos.set(i, novoObjeto);
-                    break;
-                }
+    private void abrir() {
+        Gson gson = new Gson();
+        try (FileReader reader = new FileReader(arquivoJson)) {
+            Type tipoObjeto = new TypeToken<List<TipoObjeto>>() {}.getType();
+            List<TipoObjeto> objetos = gson.fromJson(reader, tipoObjeto);
+            if (objetos != null) {
+                listaObjetos = objetos;
             }
-        } else {
-            throw new ObjectWithoutGetIdException();
+        } catch (IOException erro) {
+            System.err.println("Erro ao carregar dados do JSON para a lista: " + erro.getMessage());
         }
     }
-
 
 }

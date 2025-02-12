@@ -1,6 +1,6 @@
 package models;
 
-public class Cliente  implements VerificaGetId {
+public class Cliente implements VerificaGetId {
     private int id;
     private String nome;
     private String cpf;
@@ -99,9 +99,6 @@ public class Clientes extends CRUD<Cliente> {
         super(listaClientes);
     }
 
-    abrir() {
-        
-    }
 }
 
 
