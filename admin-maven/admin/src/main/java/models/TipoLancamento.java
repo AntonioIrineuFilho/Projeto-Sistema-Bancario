@@ -4,6 +4,10 @@ public class TipoLancamento implements VerificaId {
     private int id;
     private String descricao;
 
+    public TipoLancamento() {
+        // Construtor sem parâmetros para o Gson
+    }
+
     public TipoLancamento(int id, String descricao) {
         this.setId(id);
         this.setDescricao(descricao);

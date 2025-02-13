@@ -4,6 +4,10 @@ public class Cartao implements VerificaId {
     private int id;
     private String tipo;
     
+    public Cartao() {
+        // Construtor sem parâmetros para o Gson
+    }
+
     public Cartao(int id, String tipo){
         this.setId(id);
         this.setTipo(tipo);

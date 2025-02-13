@@ -1,6 +1,6 @@
 package models;
 
-public class Cliente implements VerificaId {
+public class Cliente implements VerificaId{
     private int id;
     private String nome;
     private String cpf;
@@ -8,13 +8,18 @@ public class Cliente implements VerificaId {
     private int idade;
     private boolean admin;
 
+    public Cliente() {
+        // Construtor sem parâmetros para o Gson
+    }
+    
     public Cliente(int id, String nome, String cpf, String telefone, int idade) {
+        super();
         this.setId(id);
         this.setNome(nome);
         this.setCpf(cpf);
         this.setTelefone(telefone);
         this.setIdade(idade);
-        this.setAdmin(this.getId());
+        this.setAdmin(false);
     }
 
     public void setId(int id) {
@@ -57,12 +62,8 @@ public class Cliente implements VerificaId {
         }
     }
 
-    public void setAdmin(int id) {
-        if (id == 0) {
-            this.admin = true;
-        } else {
-            this.admin = false;
-        }
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     public int getId() {

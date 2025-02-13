@@ -10,20 +10,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-interface VerificaId {
-    void setId(int id);
-    int getId();
-}
 
 public class CRUD<TipoObjeto extends VerificaId> {
 
     private List<TipoObjeto> listaObjetos;
-    private final String arquivoJson;
+    private final Class<TipoObjeto> tipoObjeto;
 
-    public CRUD(String arquivoJson) {
-        this.listaObjetos = new ArrayList<>();
-        this.arquivoJson = arquivoJson;
-        abrir();
+    public CRUD(Class<TipoObjeto> tipoObjeto) {
+        this.tipoObjeto = tipoObjeto;
+        abrir();  // Inicializa a lista de objetos ao criar o CRUD
     }
 
     public void inserir(TipoObjeto objeto) {
@@ -68,25 +63,17 @@ public class CRUD<TipoObjeto extends VerificaId> {
         return false;
     }
 
+    // Método para salvar a lista de objetos no arquivo JSON
     private void salvar() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try (FileWriter writer = new FileWriter(arquivoJson)) {
-            gson.toJson(listaObjetos, writer);
-        } catch (IOException erro) {
-            erro.printStackTrace();
+        if (tipoObjeto == Cliente.class) {
+            Clientes.salvar((List<Cliente>) listaObjetos);
         }
     }
 
+    // Método para abrir os dados do arquivo JSON e carregar na lista de objetos
     private void abrir() {
-        Gson gson = new Gson();
-        try (FileReader reader = new FileReader(arquivoJson)) {
-            Type tipoObjeto = new TypeToken<List<TipoObjeto>>() {}.getType();
-            List<TipoObjeto> objetos = gson.fromJson(reader, tipoObjeto);
-            if (objetos != null) {
-                listaObjetos = objetos;
-            }
-        } catch (IOException erro) {
-            System.err.println("Erro ao carregar dados do JSON para a lista: " + erro.getMessage());
+        if (tipoObjeto == Cliente.class) {
+            listaObjetos = (List<TipoObjeto>) Clientes.abrir();
         }
     }
 

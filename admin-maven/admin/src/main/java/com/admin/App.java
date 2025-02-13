@@ -6,6 +6,8 @@ import models.TipoLancamento;
 import models.CRUD;
 
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 
 public class App 
@@ -24,8 +26,12 @@ public class App
         int idade = scanner.nextInt();
 
         Cliente cliente = new Cliente(0, nome, cpf, telefone, idade);
-        CRUD<Cliente> clientes = new CRUD<>("data/clientes.json");
+        CRUD<Cliente> clientes = new CRUD<>(Cliente.class);
         clientes.inserir(cliente);
+        List<Cliente> listaClientes = clientes.listar();
+        for (Cliente c : listaClientes) {
+            System.out.println(c.toString());
+        }
         scanner.close();
     }
 }
