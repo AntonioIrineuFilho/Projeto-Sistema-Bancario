@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface VerificaId {
+interface VerificaId {
     void setId(int id);
     int getId();
 }

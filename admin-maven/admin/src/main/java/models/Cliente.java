@@ -1,6 +1,6 @@
 package models;
 
-public class Cliente implements VerificaGetId {
+public class Cliente implements VerificaId {
     private int id;
     private String nome;
     private String cpf;
@@ -89,14 +89,6 @@ public class Cliente implements VerificaGetId {
 
     public String toString() {
         return String.format("Nome: %s - CPF: %s - Telefone: %s - Idade: %d", this.getNome(), this.getCpf(), this.getTelefone(), this.getIdade());
-    }
-
-}
-
-public class Clientes extends CRUD<Cliente> {
-    
-    public Clientes() {
-        super("data/clientes.json");
     }
 
 }

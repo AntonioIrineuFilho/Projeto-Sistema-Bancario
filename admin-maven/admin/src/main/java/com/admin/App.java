@@ -1,11 +1,9 @@
 package com.admin;
 
 import models.Cliente;
-import models.Clientes;
 import models.Cartao;
-import models.Cartoes;
 import models.TipoLancamento;
-import models.TiposLancamentos;
+import models.CRUD;
 
 import java.util.Scanner;
 
@@ -26,7 +24,7 @@ public class App
         int idade = scanner.nextInt();
 
         Cliente cliente = new Cliente(0, nome, cpf, telefone, idade);
-        Clientes clientes = new Clientes();
+        CRUD<Cliente> clientes = new CRUD<>("data/clientes.json");
         clientes.inserir(cliente);
         scanner.close();
     }

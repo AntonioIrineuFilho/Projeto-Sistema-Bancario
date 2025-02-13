@@ -1,6 +1,6 @@
 package models;
 
-public class Cartao implements VerificaGetId {
+public class Cartao implements VerificaId {
     private int id;
     private String tipo;
     
@@ -37,10 +37,3 @@ public class Cartao implements VerificaGetId {
         return String.format("Tipo do cartão: %s", this.getTipo());
     }
 } 
-
-public class Cartoes extends CRUD<Cartoes> {
-    
-    public Cartoes() {
-        super("data/cartoes.json");
-    }
-}

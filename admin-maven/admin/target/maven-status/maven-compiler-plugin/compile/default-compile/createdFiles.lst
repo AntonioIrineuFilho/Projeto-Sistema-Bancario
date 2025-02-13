@@ -1,0 +1,10 @@
+models\VerificaId.class
+models\Lancamento.class
+models\Cliente.class
+models\Cartao.class
+models\TipoLancamento.class
+models\CRUD$1.class
+models\CRUD.class
+models\PedidoCartao.class
+com\admin\App.class
+models\Conta.class

@@ -1,6 +1,6 @@
 package models;
 
-public class TipoLancamento implements VerificaGetId {
+public class TipoLancamento implements VerificaId {
     private int id;
     private String descricao;
 
@@ -36,13 +36,4 @@ public class TipoLancamento implements VerificaGetId {
     public String toString() {
         return String.format("Descrição: %s", this.getDescricao());
     }
-}
-
-
-public class TiposLancamentos extends CRUD<TipoLancamento> {
-    
-    public TiposLancamentos() {
-        super("data/tiposLancamentos.json");
-    }
-
 }
