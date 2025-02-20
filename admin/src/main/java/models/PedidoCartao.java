@@ -4,14 +4,14 @@ public class PedidoCartao {
     private int id;
     private int idCliente;
     private int idConta;
-    private int idCartao;
+    private String tipoCartao; // apenas DEBITO ou CREDITO
     private boolean aprovacao;
 
-    public PedidoCartao(int id, int idCLiente, int idConta, int idCartao) {
+    public PedidoCartao(int id, int idCLiente, int idConta, String tipoCartao) {
         this.setId(id);
         this.setIdCliente(idCliente);
         this.setIdConta(idConta);
-        this.setIdCartao(idCartao);
+        this.setTipoCartao(tipoCartao);
         this.aprovacao = false;
     }
 
@@ -39,11 +39,11 @@ public class PedidoCartao {
         }
     }
 
-    public void setIdCartao(int idCartao) {
-        if (idCartao > 0) {
-            this.idCartao = idCartao;
+    public void setTipoCartao(String tipoCartao) {
+        if (tipoCartao.equals("DEBITO") || tipoCartao.equals("CREDITO")) {
+            this.tipoCartao = tipoCartao;
         } else {
-            throw new IllegalArgumentException("INVALID CARD ID");
+            throw new IllegalArgumentException("INVALID OPTION, INSERT 'DEBITO' OR 'CREDITO'");
         }
     }
 
@@ -63,8 +63,8 @@ public class PedidoCartao {
         return this.idConta;
     }
 
-    public int getIdCartao() {
-        return this.idCartao;
+    public String getTipoCartao() {
+        return this.tipoCartao;
     }
 
     public boolean getAprovacao() {
@@ -72,6 +72,6 @@ public class PedidoCartao {
     }
 
     public String toString() {
-        return String.format("ID Cliente: %d - ID Conta: %d - ID Cartão: %d - Status Aprovação: %b", this.getIdCliente(), this.getIdConta(), this.getIdCartao(), this.getAprovacao());
+        return String.format("ID Cliente: %d - ID Conta: %d - Tipo de Cartão: %s - Status Aprovação: %b", this.getIdCliente(), this.getIdConta(), this.getTipoCartao(), this.getAprovacao());
     }
 }
